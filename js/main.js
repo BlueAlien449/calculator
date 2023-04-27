@@ -1,5 +1,7 @@
 let display = document.querySelector('.numberDisplay');
 let symbolButton = document.querySelectorAll('.operator');
+let clear = document.querySelector('.clear');
+let clearEntry = document.querySelector('.clearEntry');
 let buttons = document.querySelectorAll('.operand');
 let equals = document.querySelector('.equals');
 let results = document.querySelector('.results');
@@ -28,6 +30,39 @@ function printSymbol(e){
 for (let button of symbolButton){
     button.addEventListener('click', printSymbol)
 }
+
+// Clear all
+
+function clearAll(){
+    num1 = '';
+    num2 = '';
+    total = ''
+    display.textContent = '';
+    results.textContent = '';
+}
+
+clear.addEventListener('click', clearAll);
+
+// Clear entry
+
+function deleteRecentInput(){
+
+    let displayToDelete = display;
+    let displayContent = displayToDelete.textContent;
+    let displayResult = displayContent.slice(0, -1);
+    
+    if (num1 !== '' && symbol === '') {
+        num1 = num1.slice(0, -1);
+    } else if (num1 !== '' && symbol !== '' && num2 === ''){
+        symbol = '';
+    } else if (symbol !== '' && num2 !== ''){
+        num2 = num2.slice(0, -1);
+    }
+
+    displayToDelete.textContent = displayResult;
+}
+
+clearEntry.addEventListener('click', deleteRecentInput);
 
 // Operation functions
 
