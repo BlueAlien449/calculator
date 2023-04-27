@@ -1,15 +1,18 @@
 let display = document.querySelector('.numberDisplay');
+let decimal = document.querySelector('.decimal');
 let symbolButton = document.querySelectorAll('.operator');
 let clear = document.querySelector('.clear');
 let clearEntry = document.querySelector('.clearEntry');
 let buttons = document.querySelectorAll('.operand');
 let equals = document.querySelector('.equals');
 let results = document.querySelector('.results');
-let num1 = '', num2 = '', symbol = '', total = '';
+let num1 = '0', num2 = '', symbol = '', total = '';
 
+display.textContent = '0'
 // Display operands and assign value number variables
 
 function printValue(e){
+    if (display.textContent === '0') display.textContent = '';
     let buttonValue = e.target.value;
     display.textContent += buttonValue;
     if (symbol === ''){ num1 += buttonValue;}
@@ -17,7 +20,7 @@ function printValue(e){
 };
 for (let button of buttons){
     button.addEventListener('click', printValue)
-}
+};
 
 // Display operator and assign value to symbol variable
 
@@ -29,24 +32,24 @@ function printSymbol(e){
 };
 for (let button of symbolButton){
     button.addEventListener('click', printSymbol)
-}
+};
 
 // Clear all
 
 function clearAll(){
-    num1 = '';
+    num1 = '0';
     num2 = '';
     total = ''
-    display.textContent = '';
+    display.textContent = '0';
     results.textContent = '';
-}
+};
 
 clear.addEventListener('click', clearAll);
 
 // Clear entry
 
 function deleteRecentInput(){
-
+    if (num1 === '0') return;
     let displayToDelete = display;
     let displayContent = displayToDelete.textContent;
     let displayResult = displayContent.slice(0, -1);
@@ -60,26 +63,45 @@ function deleteRecentInput(){
     }
 
     displayToDelete.textContent = displayResult;
-}
+    if (displayResult === '') display.textContent = '0' ;
+};
 
 clearEntry.addEventListener('click', deleteRecentInput);
+
+// Block decimal button if there's already one
+
+function blockDecimal(){
+    if (num1 !== '' && symbol === '') {
+        if (!num1.includes('.')) {
+            num1 += '.'
+            display.textContent += '.'
+        }
+    } else if (num2 !== ''){
+        if (!num2.includes('.')) {
+            num2 += '.'
+            display.textContent += '.'
+        }
+    }
+};
+
+decimal.addEventListener('click', blockDecimal);
 
 // Operation functions
 
 function add(){
-    return total = parseInt(num1) + parseInt(num2);
+    return total = parseFloat(num1) + parseFloat(num2);
 };
 
 function substract(){
-    return total = parseInt(num1) - parseInt(num2);
+    return total = parseFloat(num1) - parseFloat(num2);
 };
 
 function multiply(){
-    return total = parseInt(num1) * parseInt(num2);
+    return total = parseFloat(num1) * parseFloat(num2);
 };
 
 function divide(){
-    return total = parseInt(num1) / parseInt(num2);
+    return total = parseFloat(num1) / parseFloat(num2);
 };
 
 // Check the symbol variable and execute the right operation for each one
@@ -117,6 +139,6 @@ function operate(){
             results.textContent = total;
             break;        
     }
-}
+};
 
 equals.addEventListener('click', operate);
