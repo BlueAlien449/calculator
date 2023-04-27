@@ -29,6 +29,8 @@ for (let button of symbolButton){
     button.addEventListener('click', printSymbol)
 }
 
+// Operation functions
+
 function add(){
     return total = parseInt(num1) + parseInt(num2);
 };
@@ -45,7 +47,10 @@ function divide(){
     return total = parseInt(num1) / parseInt(num2);
 };
 
+// Check the symbol variable and execute the right operation for each one
+
 function operate(){
+    if (num1 === '' || num2 === '') return;
     switch (symbol){
         case '+':
             add()
@@ -69,6 +74,7 @@ function operate(){
             results.textContent = total;
             break;    
         case '/':
+            if (num1 === '0' || num2 === '0') return results.textContent = 'lmao go back to math class';
             divide()
             num1 = total;
             num2 = ''
