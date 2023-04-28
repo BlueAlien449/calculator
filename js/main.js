@@ -6,7 +6,7 @@ let clearEntry = document.querySelector('.clearEntry');
 let buttons = document.querySelectorAll('.operand');
 let equals = document.querySelector('.equals');
 let results = document.querySelector('.results');
-let num1 = '0', num2 = '', symbol = '', total = '';
+let num1 = '', num2 = '', symbol = '', total = '';
 
 display.textContent = '0'
 // Display operands and assign value number variables
@@ -16,7 +16,7 @@ function printValue(e){
     let buttonValue = e.target.value;
     display.textContent += buttonValue;
     if (symbol === ''){ num1 += buttonValue;}
-    else if (symbol !== ''){ num2 += buttonValue;};
+    else if (symbol !== ''){ num2 += buttonValue; operate()};
 };
 for (let button of buttons){
     button.addEventListener('click', printValue)
@@ -25,7 +25,7 @@ for (let button of buttons){
 // Display operator and assign value to symbol variable
 
 function printSymbol(e){
-    if (num1 !== '' && num2 !== '') operate();
+    if (num1 !== '' && num2 !== ''){newOperate(); operate()};
     let symbolValue = e.target.value;
     display.textContent += symbolValue;
     symbol += symbolValue;
@@ -37,11 +37,12 @@ for (let button of symbolButton){
 // Clear all
 
 function clearAll(){
-    num1 = '0';
-    num2 = '';
-    total = ''
     display.textContent = '0';
     results.textContent = '';
+    num1 = '';
+    num2 = '';
+    symbol = '';
+    total = '';
 };
 
 clear.addEventListener('click', clearAll);
@@ -53,17 +54,19 @@ function deleteRecentInput(){
     let displayToDelete = display;
     let displayContent = displayToDelete.textContent;
     let displayResult = displayContent.slice(0, -1);
-    
+
     if (num1 !== '' && symbol === '') {
         num1 = num1.slice(0, -1);
+
     } else if (num1 !== '' && symbol !== '' && num2 === ''){
         symbol = '';
     } else if (symbol !== '' && num2 !== ''){
         num2 = num2.slice(0, -1);
-    }
+    } 
 
     displayToDelete.textContent = displayResult;
     if (displayResult === '') display.textContent = '0' ;
+    operate();
 };
 
 clearEntry.addEventListener('click', deleteRecentInput);
@@ -111,34 +114,29 @@ function operate(){
     switch (symbol){
         case '+':
             add()
-            num1 = total;
-            num2 = ''
-            symbol = ''
-            results.textContent = total;
+            results.textContent = `= ${total}`;
             break;
         case '-':
             substract()
-            num1 = total;
-            num2 = ''
-            symbol = ''
-            results.textContent = total;
+            results.textContent = `= ${total}`;
             break;
         case '*':
             multiply()
-            num1 = total;
-            num2 = ''
-            symbol = ''
-            results.textContent = total;
+            results.textContent = `= ${total}`;
             break;    
         case '/':
             if (num1 === '0' || num2 === '0') return results.textContent = 'lmao go back to math class';
             divide()
-            num1 = total;
-            num2 = ''
-            symbol = ''
-            results.textContent = total;
+            results.textContent = `= ${total}`;
             break;        
     }
 };
 
-equals.addEventListener('click', operate);
+function newOperate(){
+    num1 = total;
+    num2 = ''
+    symbol = ''
+    display.textContent = total;
+};
+
+equals.addEventListener('click', newOperate);

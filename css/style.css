@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.calculatorBody{
+    box-shadow: 0 0 46px 5px rgba(255, 103, 0, 0.37);
+    border:1px solid rgba(255, 103, 0, 0.18);
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(4, 5rem);
+    grid-template-rows: repeat(4, 6rem);
+    gap: 10px;
+    margin: 5rem auto;
+    width: 350px;
+    padding: 20px;
+}
+
+.display{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    grid-row: 1;
+    grid-column: span 4;
+    padding: 0 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.29);
+}
+
+.numberButtons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-column: 1/4;
+}
+
+.numberButtons > .operand, .decimal, .clear, .clearEntry{
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 30px;
+}
+.clear{
+    grid-column: span 2;
+}
+
+.operand[value='0']{
+    grid-column: span 2;
+}
+
+.operators{
+    display: grid;
+    gap: 10px;
+}
+
+.operator{
+    background-color: black;
+    border: none;
+    color: #ff6700;
+    font-size: 30px;
+}
+
+.clear, .clearEntry{
+    color: #ff6700;
+}
+
+.equals{
+    background-color: #ff6700;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    justify-self: center;
+    width: 60px;
+    height: 60px;
+}
+.separator{
+    width:100%;
+}
+
+.numberDisplay{
+    font-size: 30px;
+
+}
+
+.numberDisplay, .results{
+    padding: 5px 15px;
+}
