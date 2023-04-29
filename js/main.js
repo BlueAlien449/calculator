@@ -6,7 +6,7 @@ let clearEntry = document.querySelector('.clearEntry');
 let buttons = document.querySelectorAll('.operand');
 let equals = document.querySelector('.equals');
 let results = document.querySelector('.results');
-let num1 = '', num2 = '', symbol = '', total = '';
+let num1 = '0', num2 = '', symbol = '', total = '';
 
 display.textContent = '0'
 // Display operands and assign value number variables
@@ -39,7 +39,7 @@ for (let button of symbolButton){
 function clearAll(){
     display.textContent = '0';
     results.textContent = '';
-    num1 = '';
+    num1 = '0';
     num2 = '';
     symbol = '';
     total = '';
@@ -110,6 +110,7 @@ function divide(){
 // Check the symbol variable and execute the right operation for each one
 
 function operate(){
+    results.style.display = "block";
     if (num1 === '' || num2 === '') return;
     switch (symbol){
         case '+':
