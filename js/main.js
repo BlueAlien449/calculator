@@ -28,7 +28,7 @@ function printSymbol(e){
     if (num1 !== '' && num2 !== ''){newOperate(); operate()};
     let symbolValue = e.target.value;
     display.textContent += symbolValue;
-    symbol += symbolValue;
+    symbol = symbolValue;
 };
 for (let button of symbolButton){
     button.addEventListener('click', printSymbol)
